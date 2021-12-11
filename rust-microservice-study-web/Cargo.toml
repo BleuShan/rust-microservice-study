@@ -1,0 +1,19 @@
+[package]
+edition = "2021"
+name    = "rust-microservice-study-web"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+color-eyre = "0.5"
+
+[dependencies.clap]
+features = ["derive"]
+version  = "3.0.0-rc.3"
+
+[dependencies.rust-microservice-study-core]
+path = "../rust-microservice-study-core"
+
+[dependencies.rust-microservice-study-sqlx]
+path = "../rust-microservice-study-sqlx"

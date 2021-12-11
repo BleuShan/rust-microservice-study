@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+  web:
+    container_name: ${COMPOSE_PROJECT_NAME:-rust-microservice-study}-web
+    image: ${DOCKER_REGISTRY-}${COMPOSE_PROJECT_NAME:-rust-microservice-study}/web:${TAG:-dev}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.rust
+      args:
+        CRATE_NAME: rust-microservice-study-web
+    ports:
+      - '80'
+      - '443'
+    profiles:
+      - web
+    env_file:
+      - docker/env/postgres
+      - docker/env/web
+    depends_on:
+      - rust-microservice-study-web-database
+  web-database:
+    container_name: ${COMPOSE_PROJECT_NAME:-rust-microservice-study}-web-database
+    image: ${DOCKER_REGISTRY-}postgres:latest
+    ports:
+      - '5432'
+    env_file:
+      - docker/env/postgres
+    profiles:
+      - web
+    volumes:
+      - web-database:/var/lib/postgresql/data
+volumes:
+  web-database:
+networks:
+  default:
+    name: ${COMPOSE_PROJECT_NAME:-rust-microservice-study}-network

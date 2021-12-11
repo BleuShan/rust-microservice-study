@@ -1,0 +1,7 @@
+[workspace]
+members = [
+  "rust-microservice-study-core",
+  "rust-microservice-study-sqlx",
+  "rust-microservice-study-auth",
+  "rust-microservice-study-web",
+]

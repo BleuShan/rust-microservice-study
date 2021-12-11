@@ -1,0 +1,17 @@
+FROM rustlang/rust:nightly-bullseye-slim AS rust
+RUN update-ca-certificates
+
+FROM debian:bullseye-slim as runtime
+
+FROM rust as build
+ARG CRATE_NAME
+WORKDIR /build
+COPY ./ ./
+RUN cargo install --root . --path $CRATE_NAME
+
+FROM runtime
+ARG CRATE_NAME
+ENV ENTRYPOINT $CRATE_NAME
+COPY --from=build /build/bin /app
+WORKDIR /app
+ENTRYPOINT /app/$ENTRYPOINT

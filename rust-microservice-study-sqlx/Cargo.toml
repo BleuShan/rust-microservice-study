@@ -1,0 +1,16 @@
+[package]
+edition = "2021"
+name    = "rust-microservice-study-sqlx"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+[dependencies.rust-microservice-study-core]
+path = "../rust-microservice-study-core"
+
+[dependencies.sqlx]
+features = ["runtime-tokio-rustls", "time", "uuid", "json", "postgres"]
+version  = "0.5"
